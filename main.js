@@ -15,7 +15,7 @@
  * To make the second one happen, the number to change
  * is the first argument to `repeat`, currently set at 10.
  */
-const gridWidth = 10;
+const gridWidth = 25;
 let count = 0;
 while (count <= gridWidth * gridWidth) {
   const canvas = document.querySelector('.canvas');
@@ -48,8 +48,15 @@ while (count <= gridWidth * gridWidth) {
 
 // Add queries for all your squares, palette colors, and brush here.
 // (Note the singular or plural used in that sentence!)
+let brush = document.querySelector('.current-brush')
 
+let palette = document.querySelectorAll('.palette div')
 
+let canvasSquares = document.querySelectorAll('.canvas div')
+
+let app = document.querySelector('.app')
+
+let isMouseDown = false
 
 /****************************
  * EVENT LISTENER FUNCTIONS *
@@ -60,6 +67,55 @@ while (count <= gridWidth * gridWidth) {
 // empty at first, though a console.log just to know they're being
 // run as event listeners (after the next step is set up) isn't a
 // bad idea for testing purposes.
+
+//brush listener
+brush.addEventListener('click', function(){
+  // console.log('brush!')
+})
+
+//changes brush color
+for(let i = 0; i < palette.length; i++){
+  palette[i].addEventListener('click', function(){
+    // console.log(palette[i].classList);
+    //brush.classList.replace(current color to change, newColor)
+    brush.classList.replace(brush.classList[1], palette[i].classList[1])
+  })
+}
+
+//changes canvas squares to brush color
+// for(let i = 0; i < canvasSquares.length; i++){
+//   canvasSquares[i].addEventListener('click', function(){
+//     canvasSquares[i].classList.replace(canvasSquares[i].classList[1], brush.classList[1])
+//   })
+// }
+
+
+//Some Not-Quite-Stretch-Goal Next Steps
+
+//changes to mouseenter
+for(let i = 0; i < canvasSquares.length; i++){
+  canvasSquares[i].addEventListener('mouseover', function(){
+    if(isMouseDown === true){
+    canvasSquares[i].classList.replace(canvasSquares[i].classList[1], brush.classList[1])
+  }})
+}
+
+//mousedown - checks if user left clicks and holds
+//mouseup - checks for when user releases that left click
+
+//eventListener for mouseup
+app.addEventListener('mousedown', function(){
+  console.log('Mouse is down');
+  isMouseDown = true;
+  console.log('isMouseDown:' + isMouseDown);
+})
+
+app.addEventListener('mouseup', function(){
+  console.log('Mouse is up');
+  isMouseDown = false;
+  console.log('isMouseDown:' + isMouseDown);
+})
+
 
 
 
